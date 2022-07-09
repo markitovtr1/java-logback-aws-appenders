@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  localstack:
+    image: localstack/localstack
+    environment:
+      AWS_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: a
+      AWS_SECRET_ACCESS_KEY: a
+      SERVICES: sns,sqs
+      DATA_DIR: /tmp/localstack/data
+      HOSTNAME: localhost
+      HOSTNAME_EXTERNAL: localhost
+    ports:
+      - "4566:4566"

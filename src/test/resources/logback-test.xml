@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+    <appender name="sqs" class="br.com.crazycrowd.logback.aws.SqsAppender">
+        <maxMessageSize>30</maxMessageSize>
+        <queueUrl>http://localhost:4566/000000000000/test-queue-appender</queueUrl>
+        <sqsEndpoint>http://localhost:4566</sqsEndpoint>
+        <encoder>
+            <pattern>%-5level: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="sns" class="br.com.crazycrowd.logback.aws.SnsAppender">
+        <maxMessageSize>30</maxMessageSize>
+        <snsEndpoint>http://localhost:4566</snsEndpoint>
+        <topicArn>arn:aws:sns:us-east-1:000000000000:test-topic-appender</topicArn>
+        <encoder>
+            <pattern>%-5level: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="test-logger" level="TRACE" additivity="false">
+        <appender-ref ref="sqs"/>
+        <appender-ref ref="sns"/>
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
